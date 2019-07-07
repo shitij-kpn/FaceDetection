@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(to right, #c700ff, #d300fd, #df00fb, #ea00f8, #f500f6);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
