@@ -22,7 +22,7 @@ class Register extends React.Component{
     }
 
     onSubmit = () => {
-        fetch('http://localhost:5000/register',{
+        fetch('https://fierce-river-21542.herokuapp.com/register',{
             method : 'post',
             headers : {'Content-Type' : 'application/json'},
             body : JSON.stringify({
@@ -33,9 +33,9 @@ class Register extends React.Component{
         })
             .then(res => res.json())
             .then(user => {
-                if(user){
+                if(user.id){
                     this.props.loadUser(user);
-                    this.props.onRouteChange('signin');
+                    this.props.onRouteChange('home');
                 }
             })
     }

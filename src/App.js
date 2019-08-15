@@ -87,7 +87,7 @@ class App extends Component{
       .predict("a403429f2ddf4b49b307e318f00e528b", this.state.input)
         .then(response => {
           if(response){
-            fetch('http://localhost:5000/image' ,{
+            fetch('https://fierce-river-21542.herokuapp.com/image' ,{
               method : 'put',
               headers : {'Content-Type' : 'application/json'},
               body : JSON.stringify({
