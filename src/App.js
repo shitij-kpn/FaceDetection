@@ -71,9 +71,7 @@ class App extends Component{
   }
 
   displayFaceBox = (face) => {
-    this.setState(({
-      box: [...this.state.box, face]
-    }))
+    this.setState({box:face})
     console.log(this.state.box);
   }
 
@@ -121,7 +119,6 @@ class App extends Component{
     const faces = box.map((faceloc,index) => {
       return <FaceRecognition key={index} box={faceloc} imgURL = {imgURL}/>
     })
-    console.table(box);
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
