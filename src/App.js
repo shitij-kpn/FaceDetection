@@ -73,8 +73,8 @@ class App extends Component{
   }
 
   displayFaceBox = (box) => {
-	  console.log(box);
-	  this.setState({box : [...this.state.box , box]})
+	  console.log(this.state.box);
+    this.setState({box : [...this.state.box , box]})
   }
 
   //using arrow function to have this point to App
@@ -119,9 +119,9 @@ class App extends Component{
 
   render(){
     const { isSignedIn ,route ,imgURL ,box } = this.state;
-    let faces = box.map((element , index) => {
-      return <FaceRecognition key={index} box={element} imgURL = {imgURL}/>
-    })
+    // let faces = box.map((element , index) => {
+    //   return <FaceRecognition key={index} box={element} imgURL = {imgURL}/>
+    // })
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -131,7 +131,7 @@ class App extends Component{
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
-            {faces}
+            <FaceRecognition box={box[1]} imgURL = {imgURL}/>
           </div>
             :(
               route === 'signin' 
