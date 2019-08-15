@@ -71,8 +71,8 @@ class App extends Component{
   }
 
   displayFaceBox = (face) => {
-    this.setState(prevState => ({
-      box: [...prevState.box, face]
+    this.setState(({
+      box: [...this.state.box, face]
     }))
     console.log(this.state.box);
   }
@@ -102,8 +102,7 @@ class App extends Component{
           response.outputs[0].data.regions.forEach(element => {
             this.displayFaceBox(this.calculateFacelocation(element));
           });
-          
-        })
+       })
         .catch(err => console.log(err))
   } 
 
