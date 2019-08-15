@@ -59,11 +59,10 @@ class App extends Component{
   }
   
   calculateFaceLocation = (data) => {
-	  const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box;
+	  const clarifaiData = data.region_info.bounding_box;
 	  const image = document.getElementById('inputImage');
 	  const width = Number(image.width);
 	  const height = Number(image.height);
-	  console.log(width , height);
 	  return({
 		  LeftCol : clarifaiData.left_col * width,
 		  TopRow : clarifaiData.top_row * height,
@@ -73,7 +72,6 @@ class App extends Component{
   }
 
   displayFaceBox = (box) => {
-	  console.log(box);
 	  this.setState({box : box})
   }
 
@@ -99,7 +97,10 @@ class App extends Component{
                 this.setState(Object.assign(this.state.user , {entries : count}));
               })
           }
-          this.displayFaceBox(this.calculateFaceLocation(response))
+          response.outputs[0].data.regions.forEach(element => {
+            this.displayFaceBox(this.calculateFaceLocation(element));
+          });
+          
         })
         .catch(err => console.log(err))
   } 
