@@ -29,7 +29,7 @@ const app = new Clarifai.App({
 const initialState = {
   input : '',
   imgURL : '',
-  box : {},
+  box : [],
   route : 'signin',
   isSignedIn : false,
   user : {
@@ -59,7 +59,7 @@ class App extends Component{
   }
   
   calculateFaceLocation = (data) => {
-	  const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box;
+	  const clarifaiData = data.region_info.bounding_box;
 	  const image = document.getElementById('inputImage');
 	  const width = Number(image.width);
 	  const height = Number(image.height);
@@ -74,7 +74,7 @@ class App extends Component{
 
   displayFaceBox = (box) => {
 	  console.log(box);
-	  this.setState({box : box})
+	  this.setState({box : [...this.state.box , box]})
   }
 
   //using arrow function to have this point to App
@@ -99,7 +99,10 @@ class App extends Component{
                 this.setState(Object.assign(this.state.user , {entries : count}));
               })
           }
-          this.displayFaceBox(this.calculateFaceLocation(response))
+          response.outputs[0].data.regions.forEach(face => {
+            this.displayFaceBox(this.calculateFaceLocation(face))
+          })
+            
         })
         .catch(err => console.log(err))
   } 
