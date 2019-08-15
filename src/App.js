@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import Navigation from './components/navigation/navigation';
 import Logo from './components/logo/logo';
-import ImagelinkForm from './components/imageLinkForm/imageLinkForm';
+import ImageLinkForm from './components/imageLinkForm/imageLinkForm';
 import Rank from './components/rank/rank';
 import FaceRecognition from './components/faceRecognition/faceRecognition';
 import SignIn from './components/signIN/signIN';
@@ -29,7 +29,7 @@ const app = new Clarifai.App({
 const initialState = {
   input : '',
   imgURL : '',
-  box : [],
+  box : {},
   route : 'signin',
   isSignedIn : false,
   user : {
@@ -55,13 +55,15 @@ class App extends Component{
         entries : data.entries,
         joined : data.joined
     }});
+    console.table(this.state.user);
   }
   
-  calculateFacelocation = (data) => {
-	  const clarifaiData = data.region_info.bounding_box;
+  calculateFaceLocation = (data) => {
+	  const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box;
 	  const image = document.getElementById('inputImage');
 	  const width = Number(image.width);
 	  const height = Number(image.height);
+	  console.log(width , height);
 	  return({
 		  LeftCol : clarifaiData.left_col * width,
 		  TopRow : clarifaiData.top_row * height,
@@ -70,11 +72,9 @@ class App extends Component{
 	  })
   }
 
-  displayFaceBox = (face) => {
-    this.setState(({
-      box: [...this.state.box, face]
-    }))
-    console.log(this.state.box);
+  displayFaceBox = (box) => {
+	  console.log(box);
+	  this.setState({box : box})
   }
 
   //using arrow function to have this point to App
@@ -99,10 +99,8 @@ class App extends Component{
                 this.setState(Object.assign(this.state.user , {entries : count}));
               })
           }
-          response.outputs[0].data.regions.forEach(element => {
-            this.displayFaceBox(this.calculateFacelocation(element));
-          });
-       })
+          this.displayFaceBox(this.calculateFaceLocation(response))
+        })
         .catch(err => console.log(err))
   } 
 
@@ -117,10 +115,7 @@ class App extends Component{
   }
 
   render(){
-    const { isSignedIn ,route ,imgURL , box } = this.state;
-    const faces = box.map((faceloc,index) => {
-      return <FaceRecognition key={index} box={faceloc} imgURL = {imgURL}/>
-    })
+    const { isSignedIn ,route ,imgURL ,box } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -129,8 +124,8 @@ class App extends Component{
          ?<div>
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-            <ImagelinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit} />   {/*passing function as a prop*/}
-            {faces}
+            <ImageLinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
+            <FaceRecognition box={box} imgURL = {imgURL}/>
           </div>
             :(
               route === 'signin' 
