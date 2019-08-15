@@ -74,6 +74,7 @@ class App extends Component{
     this.setState(prevState => ({
       box: [...prevState.box, face]
     }))
+    console.log(this.state.box);
   }
 
   //using arrow function to have this point to App
@@ -117,10 +118,11 @@ class App extends Component{
   }
 
   render(){
-    const { isSignedIn ,route ,imgURL ,box } = this.state;
+    const { isSignedIn ,route ,imgURL , box } = this.state;
     const faces = box.map((faceloc,index) => {
       return <FaceRecognition key={index} box={faceloc} imgURL = {imgURL}/>
     })
+    console.table(box);
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
