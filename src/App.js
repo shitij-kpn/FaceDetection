@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import Navigation from './components/navigation/navigation';
 import Logo from './components/logo/logo';
-import ImagelinkForm from './components/imagelinkForm/imagelinkForm';
+import ImagelinkForm from './components/imageLinkForm/imageLinkForm';
 import Rank from './components/rank/rank';
 import FaceRecognition from './components/faceRecognition/faceRecognition';
 import SignIn from './components/signIN/signIN';
@@ -72,10 +72,8 @@ class App extends Component{
 
   displayFaceBox = (face) => {
     this.setState(prevState => ({
-      box : prevState.box.map(
-        (element,index) => element.key === index ? { ...element, face }: element
-      )
-    }));
+      box: [...prevState.box, face]
+    }))
   }
 
   //using arrow function to have this point to App
@@ -131,7 +129,7 @@ class App extends Component{
          ?<div>
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-            <ImagelinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
+            <ImagelinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit} />   {/*passing function as a prop*/}
             {faces}
           </div>
             :(
