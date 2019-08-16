@@ -63,7 +63,6 @@ class App extends Component{
 	  const image = document.getElementById('inputImage');
 	  const width = Number(image.width);
 	  const height = Number(image.height);
-	  console.log(width , height);
 	  return({
 		  LeftCol : clarifaiData.left_col * width,
 		  TopRow : clarifaiData.top_row * height,

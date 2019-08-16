@@ -6,6 +6,7 @@ import Box from '../box/box'
 
 const FaceRecognition = ({imgURL , box}) => {
 	let boxes = box.map((face,i) => {
+		console.log('face',face)
 		return <Box key={i} box={face}/>
 	})
 	return(
