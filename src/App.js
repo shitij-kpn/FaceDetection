@@ -73,8 +73,9 @@ class App extends Component{
   }
 
   displayFaceBox = (box) => {
-	  console.log(this.state.box);
+	  
     this.setState({box : [...this.state.box , box]})
+    console.log(this.state.box);
   }
 
   //using arrow function to have this point to App
@@ -132,6 +133,7 @@ class App extends Component{
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
             <FaceRecognition box={box} imgURL = {imgURL}/>
+            {/* this not working */}
           </div>
             :(
               route === 'signin' 
