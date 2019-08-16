@@ -120,9 +120,10 @@ class App extends Component{
 
   render(){
     const { isSignedIn ,route ,imgURL ,box } = this.state;
-    // let faces = box.map((element , index) => {
-    //   return <FaceRecognition key={index} box={element} imgURL = {imgURL}/>
-    // })
+    let faces = box.map((element , index) => {
+      return <FaceRecognition key={index} box={element} imgURL = {imgURL}/>
+    })
+    console.log(faces);
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -132,7 +133,7 @@ class App extends Component{
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
-            <FaceRecognition box={box} imgURL = {imgURL}/>
+            <FaceRecognition box={box[1]} imgURL = {imgURL}/>
             {/* this not working */}
           </div>
             :(
