@@ -129,6 +129,7 @@ class App extends Component{
             <Logo />
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm onInputChange = {this.onInputChange} onSubmit = {this.onSubmit}/>   {/*passing function as a prop*/}
+            {console.log(box)}
             <FaceRecognition box={box} imgURL = {imgURL}/>
           </div>
             :(
