@@ -72,7 +72,6 @@ class App extends Component{
   }
 
   displayFaceBox = (box) => {
-	  
     this.setState({box : [...this.state.box , box]})
    
   }
@@ -82,7 +81,7 @@ class App extends Component{
 	  this.setState({input : event.target.value});
   }   
   onSubmit = () => {
-	  this.setState({imgURL : this.state.input});
+	  this.setState({imgURL : this.state.input , box : []});
     app.models
       .predict("a403429f2ddf4b49b307e318f00e528b", this.state.input)
         .then(response => {
